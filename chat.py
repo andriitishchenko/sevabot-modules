@@ -212,67 +212,6 @@ class TessChat(StatefulSkypeHandler):
         # except:
         #     rez = "EEER"
         # return rez
-class Hihistory:
-    """
-    Stored pickled state of the tasks.
-
-    Use Python pickling serialization for making status info persistent.
-    """
-
-    def __init__(self):
-        # Chat id -> OrderedDict() of jobs mappings
-        self.records = dict()
-
-    @classmethod
-    def read(cls, path):
-        """
-        Read status file.
-
-        Return fresh status if file does not exist.
-        """
-
-        if not os.path.exists(path):
-            # Status file do not exist, get default status
-            return Hihistory()
-
-        f = open(path, "rb")
-
-        try:
-            return pickle.load(f)
-        finally:
-            f.close()
-
-    @classmethod
-    def write(cls, path, status):
-        """
-        Write status file
-        """
-        f = open(path, "wb")
-        pickle.dump(status, f)
-        f.close()
-
-    def get_tasks(self, chat_id):
-        """
-        Get jobs of a particular chat.
-        """
-        if not chat_id in self.records:
-            # Skype username -> Task instance mappings
-            self.records[chat_id] = OrderedDict()
-
-        return self.records[chat_id]
-
-class Rec:
-    """
-    """
-
-    def __init__(self, real_name, started, desc):
-        """
-        """
-        self.chat_id = started
-        self.user_id = desc
-    # The following has been
-    # ripped off from https://github.com/imtapps/django-pretty-times/blob/master/pretty_times/pretty.py
-  
 
 # Export the instance to Sevabot
 sevabot_handler = TessChat()
