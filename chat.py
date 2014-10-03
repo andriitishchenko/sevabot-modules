@@ -53,6 +53,7 @@ class TessChat(StatefulSkypeHandler):
             "(привет|hi|здаров)": self.cmd_hi,
             "что такое": self.cmd_what_is,
             "стреляй": self.cmd_shut,
+            "(man|help)": self.cmd_man,
         }
         self.publickcommands = {
             "(привет|hi|здаров)": self.cmd_hi,
@@ -113,12 +114,28 @@ class TessChat(StatefulSkypeHandler):
         Print help text to chat.
         """
         try:
-            logger.debug("call");
             content = urllib2.urlopen(url).read()
             soup = BeautifulSoup(content)
             return soup.title.string        
         except:
             return None
+
+    def cmd_man(self, msg, chat_id):
+        """
+        Print help text to chat.
+        """
+        string = """Умею:
+        !dice, 
+        !ping, 
+        !sad, 
+        !weather,
+        деплой,
+        время,
+        привет,
+        что такое <string>?,
+        стреляй,
+        man"""
+        msg.Chat.SendMessage(string)
 
     def cmd_deploy(self, msg, chat_id):
         """
@@ -158,8 +175,6 @@ class TessChat(StatefulSkypeHandler):
         # aUm = iter(usrs)
         # for i, x in enumerate(usrs):
             # msg.Chat.SendMessage(" - %s" % x.FullName)
-        
-    
 
     def cmd_what_is(self, msg, chat_id):
         """
@@ -212,66 +227,66 @@ class TessChat(StatefulSkypeHandler):
         # except:
         #     rez = "EEER"
         # return rez
-class Hihistory:
-    """
-    Stored pickled state of the tasks.
+# class Hihistory:
+#     """
+#     Stored pickled state of the tasks.
 
-    Use Python pickling serialization for making status info persistent.
-    """
+#     Use Python pickling serialization for making status info persistent.
+#     """
 
-    def __init__(self):
-        # Chat id -> OrderedDict() of jobs mappings
-        self.records = dict()
+#     def __init__(self):
+#         # Chat id -> OrderedDict() of jobs mappings
+#         self.records = dict()
 
-    @classmethod
-    def read(cls, path):
-        """
-        Read status file.
+#     @classmethod
+#     def read(cls, path):
+#         """
+#         Read status file.
 
-        Return fresh status if file does not exist.
-        """
+#         Return fresh status if file does not exist.
+#         """
 
-        if not os.path.exists(path):
-            # Status file do not exist, get default status
-            return Hihistory()
+#         if not os.path.exists(path):
+#             # Status file do not exist, get default status
+#             return Hihistory()
 
-        f = open(path, "rb")
+#         f = open(path, "rb")
 
-        try:
-            return pickle.load(f)
-        finally:
-            f.close()
+#         try:
+#             return pickle.load(f)
+#         finally:
+#             f.close()
 
-    @classmethod
-    def write(cls, path, status):
-        """
-        Write status file
-        """
-        f = open(path, "wb")
-        pickle.dump(status, f)
-        f.close()
+#     @classmethod
+#     def write(cls, path, status):
+#         """
+#         Write status file
+#         """
+#         f = open(path, "wb")
+#         pickle.dump(status, f)
+#         f.close()
 
-    def get_tasks(self, chat_id):
-        """
-        Get jobs of a particular chat.
-        """
-        if not chat_id in self.records:
-            # Skype username -> Task instance mappings
-            self.records[chat_id] = OrderedDict()
+#     def get_tasks(self, chat_id):
+#         """
+#         Get jobs of a particular chat.
+#         """
+#         if not chat_id in self.records:
+#             # Skype username -> Task instance mappings
+#             self.records[chat_id] = OrderedDict()
 
-        return self.records[chat_id]
+#         return self.records[chat_id]
 
-class Rec:
-    """
-    """
+# class Rec:
+#     """
+#     """
 
-    def __init__(self, real_name, started, desc):
-        """
-        """
-        self.chat_id = started
-        self.user_id = desc
-    # The following has been
-    # ripped off from https://github.com/imtapps/django-pretty-times/blob/master/pretty_times/pretty.py
+#     def __init__(self, real_name, started, desc):
+#         """
+#         """
+#         self.chat_id = started
+#         self.user_id = desc
+#     # The following has been
+#     # ripped off from https://github.com/imtapps/django-pretty-times/blob/master/pretty_times/pretty.py
   
 
 # Export the instance to Sevabot
