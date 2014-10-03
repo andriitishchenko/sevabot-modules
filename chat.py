@@ -227,6 +227,7 @@ class TessChat(StatefulSkypeHandler):
         # except:
         #     rez = "EEER"
         # return rez
+# <<<<<<< HEAD
 # class Hihistory:
 #     """
 #     Stored pickled state of the tasks.
