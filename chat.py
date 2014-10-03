@@ -227,7 +227,6 @@ class TessChat(StatefulSkypeHandler):
         # except:
         #     rez = "EEER"
         # return rez
-# <<<<<<< HEAD
 # class Hihistory:
 #     """
 #     Stored pickled state of the tasks.
@@ -292,5 +291,4 @@ class TessChat(StatefulSkypeHandler):
 
 # Export the instance to Sevabot
 sevabot_handler = TessChat()
-
 __all__ = ['sevabot_handler']
